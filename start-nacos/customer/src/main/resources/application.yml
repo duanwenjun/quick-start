@@ -1,0 +1,53 @@
+logging:
+  level:
+    com.alibaba.nacos.client.config.impl.ClientWorker: error
+    com.example.customer.service.CustomerService: debug
+feign:
+  # 全局配置，单个服务配置把default替换为需要设置的服务名
+  client.config.default.loggerLevel: full
+  okhttp.enabled: true
+  # 熔断与回退
+  hystrix.enabled: false
+# 重试机制
+# 重试次数：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries *MaxAutoRetriesNextServer)
+ribbon:
+  # 连接超时时间,单位ms 默认1000ms 源码位置RibbonClientConfiguration
+  ConnectTimeout: 2000
+  # 读超时时间,单位ms 默认1000ms
+  ReadTimeout: 2000
+  # 同一台实例最大重试次数,不包括首次调用。默认值为0
+  MaxAutoRetries: 0
+  # 重试负载均衡其他的实例最大重试次数,不包括首次调用。默认值为1
+  MaxAutoRetriesNextServer: 1
+  # 是否所有操作都重试。默认值为false
+  OkToRetryOnAllOperations: false
+  # 错误码
+  #retryableStatusCodes: 404,502
+
+# Ribbon更新服务注册列表的频率
+ribbon.ServerListRefreshInterval: 2000
+
+# 单独配置服务超时时间
+user.ribbon.ReadTimeout: 2500
+# 单独配置重试策略
+user.ribbon.MaxAutoRetries: 3
+# 超时熔断机制
+hystrix:
+  command:
+    default:
+      # Hystrix的超时时间，单位毫秒。默认值为1秒。时间设置>重试次数*ReadTimeout
+      execution.isolation.thread.timeoutInMilliseconds: 10000
+      # 滚动时间
+      #metrics.rollingStats.timeInMilliseconds: 3
+      # 错误次数
+      #circuitBreaker.requestVolumeThreshold: 3
+# Ribbon自定义配置 eg:修改feign调用user服务的负载均衡策略为随机
+#user.ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
