@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -21,7 +22,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "person-#{T(java.time.LocalDate).now().toString()}", type = "_doc", shards = 1)
+@Document(indexName = "person-#{T(java.time.LocalDate).now().toString()}", shards = 1)
 public class Person implements Serializable {
 
   /**
@@ -50,7 +51,7 @@ public class Person implements Serializable {
   /**
    * 生日
    */
-  @Field(type = FieldType.Date)
+  @Field(type = FieldType.Date, format = DateFormat.date)
   private Date birthday;
 
   /**
@@ -64,6 +65,12 @@ public class Person implements Serializable {
    */
   @Field(type = FieldType.Object)
   private Policy policy;
+
+  /**
+   * 创建时间
+   */
+  @Field(type = FieldType.Date, format = DateFormat.date_time)
+  private Date createTime;
 
   public static void main (String[] args) {
     System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM")));

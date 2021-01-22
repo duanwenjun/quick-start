@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.mapper.GeoHashMapper">
+  <sql id="selectGeoHashList">
+    select f_id            id,
+           f_geo_hash      geoHash,
+           f_code          code,
+           f_province_code provinceCode,
+           f_province_name provinceName,
+           f_city_code     cityCode,
+           f_city_name     cityName,
+           f_country_code  countryCode,
+           f_country_name  countryName,
+           f_merge_code    mergeCode,
+           f_merge_name    mergeName,
+           f_location      location,
+           f_source        source,
+           f_remark        remark,
+           f_create_by     createBy,
+           f_create_time   createTime,
+           f_update_by     updateBy,
+           f_update_time   updateTime,
+           f_yn            yn
+    from t_geo_hash
+    where f_yn = 1
+  </sql>
+  <sql id="selectGeoHashQueryParameters">
+    <if test="geoHash.geoHash != null  and geoHash.geoHash != ''">
+      and f_geo_hash = #{geoHash.geoHash}
+    </if>
+    <if test="geoHash.provinceCode != null  and geoHash.provinceCode != ''">
+      and f_province_code = #{geoHash.provinceCode}
+    </if>
+    <if test="geoHash.provinceName != null  and geoHash.provinceName != ''">
+      and f_province_name like concat(#{geoHash.provinceName}, '%')
+    </if>
+    <if test="geoHash.cityCode != null  and geoHash.cityCode != ''">
+      and f_city_code = #{geoHash.cityCode}
+    </if>
+    <if test="geoHash.cityName != null  and geoHash.cityName != ''">
+      and f_city_name like concat(#{geoHash.cityName}, '%')
+    </if>
+    <if test="geoHash.countryCode != null  and geoHash.countryCode != ''">
+      and f_country_code = #{geoHash.countryCode}
+    </if>
+    <if test="geoHash.countryName != null  and geoHash.countryName != ''">
+      and f_country_name like concat(#{geoHash.countryName}, '%')
+    </if>
+    <if test="geoHash.location != null  and geoHash.location != ''">
+      and f_location like concat(#{geoHash.location}, '%')
+    </if>
+  </sql>
+  <select id="queryGeoHashList" resultType="com.duan.domain.GeoHash">
+    <include refid="selectGeoHashList"/>
+    <include refid="selectGeoHashQueryParameters"/>
+  </select>
+  <select id="queryGeoHashPageList" resultType="com.duan.domain.GeoHash">
+    <include refid="selectGeoHashList"/>
+    <include refid="selectGeoHashQueryParameters"/>
+  </select>
+  <select id="queryAreaByGeoHash" resultType="com.duan.domain.AreaDTO">
+    select
+           f_code          code,
+           f_merge_name    mergeName,
+           f_city_code     cityCode,
+           f_area_code     areaCode,
+           f_province_code dictProvinceCode,
+           f_province_name dictProvince,
+           f_city_name     dictCity,
+           f_city_code  dictCityCode
+    from t_geo_hash
+    where f_geo_hash = #{geoHash}
+      and f_yn = 1 limit 1
+  </select>
+</mapper>

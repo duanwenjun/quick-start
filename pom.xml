@@ -9,19 +9,33 @@
   <packaging>pom</packaging>
   <version>1.0</version>
   <properties>
-    <spring.boot.version>2.3.5.RELEASE</spring.boot.version>
-    <hutool.version>5.4.7</hutool.version>
-    <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
-    <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
-    <mybatis-plus.version>3.4.0</mybatis-plus.version>
-    <p6spy.version>3.9.0</p6spy.version>
-    <easyexcel.version>2.2.6</easyexcel.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <spring.boot.version>2.4.0</spring.boot.version>
+    <hutool.version>5.5.2</hutool.version>
+    <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
+    <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+    <mybatis-plus.version>3.4.1</mybatis-plus.version>
+    <p6spy.version>3.9.1</p6spy.version>
+    <easyexcel.version>2.2.7</easyexcel.version>
   </properties>
 
   <modules>
     <module>start-elasticsearch</module>
     <module>start-nacos</module>
     <module>start-easyexcel</module>
+    <module>start-elasticsearch-rest-high-level-client</module>
+    <module>start-knife4j</module>
+    <module>start-basic</module>
+    <module>start-mybatis-plus</module>
+    <module>start-redis</module>
+    <module>start-thread</module>
+    <module>start-prometheus</module>
+    <module>start-rabbitmq</module>
+    <module>start-web</module>
   </modules>
   <dependencyManagement>
     <dependencies>

@@ -28,7 +28,7 @@ ribbon:
 ribbon.ServerListRefreshInterval: 2000
 
 # 单独配置服务超时时间
-user.ribbon.ReadTimeout: 2500
+user.ribbon.ReadTimeout: 4000
 # 单独配置重试策略
 user.ribbon.MaxAutoRetries: 3
 # 超时熔断机制

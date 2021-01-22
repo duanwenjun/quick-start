@@ -1,0 +1,6 @@
+demo:
+  name: ss
+  map: {key1: 001,key2: 002}
+  string-list: 001,002
+server:
+  port: 8006

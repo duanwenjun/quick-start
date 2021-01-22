@@ -1,0 +1,8 @@
+elasticsearch:
+  username: elastic
+  password: elastic
+spring:
+  jackson:
+    time-zone: GMT+8
+    #全局日期时间格式化格式
+    date-format: yyyy-MM-dd HH:mm:ss

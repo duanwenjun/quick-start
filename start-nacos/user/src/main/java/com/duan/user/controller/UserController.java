@@ -48,7 +48,7 @@ public class UserController {
   @PostMapping
   public User add () {
     log.info("新增请求");
-    ThreadUtil.sleep(2500);
+    ThreadUtil.sleep(3000);
     User user = new User();
     user.setName(IdUtil.fastUUID());
     userService.save(user);

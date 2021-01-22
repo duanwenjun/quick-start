@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="5">
+  <properties>
+    <property name="log.root.level">info</property>
+    <property name="log.console.level">info</property>
+    <property name="log.root.path">/Users/duanwj/logs/rabbitmq</property>
+    <property name="log.name">rabbitmq</property>
+    <property name="log.maxfilesize">100MB</property>
+    <property name="log.pattern">%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c{1.}#%M:%L - %m%n</property>
+    <property name="kafka.servers">localhost:9092</property>
+  </properties>
+  <Appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+      <ThresholdFilter level="${log.console.level}" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="${log.pattern}"/>
+    </Console>
+    <Kafka name="kafka" topic="log-collect" ignoreExceptions="false">
+      <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+      <LogstashLayout dateTimeFormatPattern="yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
+        eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"
+        prettyPrintEnabled="true"
+        stackTraceEnabled="true"
+        locationInfoEnabled="true">
+        <EventTemplateAdditionalFields>
+          <KeyValuePair key="appName" value="${log.name}"/>
+          <KeyValuePair key="env" value="dev"/>
+        </EventTemplateAdditionalFields>
+      </LogstashLayout>
+      <Property name="bootstrap.servers">${kafka.servers}</Property>
+      <Property name="request.timeout.ms">5000</Property>
+      <Property name="transaction.timeout.ms">5000</Property>
+      <Property name="max.block.ms">3000</Property>
+    </Kafka>
+    <RollingFile name="FILE" fileName="${log.root.path}/${log.name}/${log.name}.log"
+      filePattern="${log.root.path}/${log.name}/${log.name}-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="${log.pattern}"/>
+      <Policies>
+        <TimeBasedTriggeringPolicy/>
+        <SizeBasedTriggeringPolicy size="${log.maxfilesize}"/>
+      </Policies>
+      <DefaultRolloverStrategy max="100"/>
+    </RollingFile>
+    <Failover name="failover" primary="kafka" retryIntervalSeconds="6">
+      <Failovers>
+        <AppenderRef ref="FILE"/>
+      </Failovers>
+    </Failover>
+  </Appenders>
+
+  <Loggers>
+    <Root level="${log.root.level}">
+      <AppenderRef ref="failover"/>
+      <AppenderRef ref="CONSOLE"/>
+    </Root>
+  </Loggers>
+</Configuration>
