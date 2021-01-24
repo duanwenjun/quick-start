@@ -36,6 +36,7 @@
     <module>start-prometheus</module>
     <module>start-rabbitmq</module>
     <module>start-web</module>
+    <module>start-kafka</module>
   </modules>
   <dependencyManagement>
     <dependencies>
