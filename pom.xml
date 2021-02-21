@@ -37,6 +37,7 @@
     <module>start-rabbitmq</module>
     <module>start-web</module>
     <module>start-kafka</module>
+    <module>start-weixin</module>
   </modules>
   <dependencyManagement>
     <dependencies>

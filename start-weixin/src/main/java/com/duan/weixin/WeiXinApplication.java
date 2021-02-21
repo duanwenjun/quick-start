@@ -1,4 +1,4 @@
-package com.duan.thread;
+package com.duan.weixin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author duanwj
  */
 @SpringBootApplication
-public class ThreadApplication {
+public class WeiXinApplication {
 
   public static void main (String[] args) {
-    SpringApplication.run(ThreadApplication.class, args);
+    SpringApplication.run(WeiXinApplication.class, args);
   }
+
 }
