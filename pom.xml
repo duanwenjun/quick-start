@@ -40,6 +40,7 @@
     <module>start-weixin</module>
     <module>start-nginx</module>
     <module>start-elastic-apm</module>
+    <module>startr-selenium</module>
   </modules>
   <dependencyManagement>
     <dependencies>
@@ -99,6 +100,10 @@
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
     </dependency>
   </dependencies>
   <build>
