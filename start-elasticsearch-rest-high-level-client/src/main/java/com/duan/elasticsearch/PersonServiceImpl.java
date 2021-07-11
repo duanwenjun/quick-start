@@ -41,6 +41,7 @@ import org.elasticsearch.search.suggest.SuggestBuilder;
 import org.elasticsearch.search.suggest.SuggestBuilders;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestion;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
+import org.joda.time.DateTimeZone;
 import org.springframework.stereotype.Service;
 
 /**
@@ -85,7 +86,7 @@ public class PersonServiceImpl implements PersonService {
     }
     //时间范围 gte大于等于，lte小于等于
     if (StrUtil.isNotBlank(personDTO.getCreateTime())) {
-      boolQueryBuilder.filter(QueryBuilders.rangeQuery("createTime").gte(personDTO.getCreateTime()));
+      boolQueryBuilder.filter(QueryBuilders.rangeQuery("createTime").gte(personDTO.getCreateTime()).timeZone("Asia/Shanghai"));
     }
     // 多字段查询
     if (StrUtil.isNotBlank(personDTO.getContent())) {

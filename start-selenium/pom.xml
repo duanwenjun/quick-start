@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>startr-selenium</artifactId>
+  <artifactId>start-selenium</artifactId>
   <dependencies>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
